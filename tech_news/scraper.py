@@ -21,8 +21,13 @@ def fetch(url):
 
 # Requisito 2
 def scrape_updates(html_content):
-    """Seu código deve vir aqui"""
-    raise NotImplementedError
+    soup = BeautifulSoup(html_content, "html.parser")
+    list = []
+
+    for new in soup.find_all("article", {"class": "entry-preview"}):
+        list.append(new.find("a", href=True)["href"])
+
+    return list
 
 
 # Requisito 3
