@@ -1,5 +1,5 @@
 import sys
-
+# iniciando projeto
 
 from tech_news.analyzer.ratings import top_5_categories
 from tech_news.analyzer.search_engine import (
