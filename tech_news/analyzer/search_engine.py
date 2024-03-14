@@ -30,11 +30,18 @@ def search_by_date(date):
 
     except ValueError:
         raise ValueError("Data inválida")
-    except Exception as error:
-        raise error
 
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
-    raise NotImplementedError
+    try:
+        news = db.news.find(
+            {"category": {"$regex": category, "$options": "i"}},
+            projection={"title", "url"},
+        )
+
+        list_news = [(new["title"], new["url"]) for new in news]
+        return list_news
+
+    except Exception as error:
+        raise error
