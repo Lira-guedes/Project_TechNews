@@ -16,7 +16,7 @@ def fetch(url):
         if response.status_code != 200:
             return None
         return response.text
-    
+
     except requests.RequestException:
         return None
 

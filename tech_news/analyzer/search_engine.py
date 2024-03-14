@@ -1,13 +1,12 @@
 from tech_news.database import db
 from datetime import datetime
 
+
 # Requisito 7
 def search_by_title(title):
     try:
         news = db.news.find(
-            {"title":
-             {"$regex": title, "$options": "i"}
-            },
+            {"title": {"$regex": title, "$options": "i"}},
             projection=["title", "url"],
         )
         list_news = [(new["title"], new["url"]) for new in news]
