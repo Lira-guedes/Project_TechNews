@@ -1,4 +1,5 @@
 from tech_news.database import db
+from datetime import datetime
 
 # Requisito 7
 def search_by_title(title):
@@ -9,7 +10,6 @@ def search_by_title(title):
             },
             projection=["title", "url"],
         )
-
         list_news = [(new["title"], new["url"]) for new in news]
         return list_news
 
@@ -19,8 +19,19 @@ def search_by_title(title):
 
 # Requisito 8
 def search_by_date(date):
-    """Seu código deve vir aqui"""
-    raise NotImplementedError
+    try:
+        dateformat = datetime.strptime(date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        news = db.news.find(
+            {"timestamp": dateformat}, projection={"title", "url"}
+        )
+
+        list_news = [(new["title"], new["url"]) for new in news]
+        return list_news
+
+    except ValueError:
+        raise ValueError("Data inválida")
+    except Exception as error:
+        raise error
 
 
 # Requisito 9
